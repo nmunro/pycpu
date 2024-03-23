@@ -1,0 +1,19 @@
+title = "CPU Config"
+
+[cpu]
+speed = 1
+freq = "hz"
+
+[cpu.registers]
+[cpu.registers.standard]
+count = 8
+prefix = "r"
+
+[cpu.registers.special]
+mar = "MAR"
+program_counter = "PC"
+
+
+[vm]
+total_size = 64
+word_length = 8
