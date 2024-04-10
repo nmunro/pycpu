@@ -5,14 +5,30 @@ speed = 1
 freq = "hz"
 
 [cpu.registers]
-[cpu.registers.standard]
+[cpu.registers.data]
 count = 8
-prefix = "r"
+prefix = "d"
+protected = false
 
-[cpu.registers.special]
-mar = "MAR"
-program_counter = "PC"
+[cpu.registers.address]
+count = 8
+prefix = "a"
+protected = false
 
+[cpu.registers.program_counter]
+count = 1
+prefix = "pc"
+protected = true
+
+[cpu.registers.condition_control_register]
+count = 1
+prefix = "ccr"
+protected = true
+
+[cpu.registers.memory_address_register]
+count = 1
+prefix = "mar"
+protected = true
 
 [vm]
 total_size = 64

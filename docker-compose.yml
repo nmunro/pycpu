@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  pycpu:
+    build: .
+    command: ["poetry", "run", "python", "cpu/main.py"]
+    ports:
+      - target: 5678
+        published: 5678
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: bind
+        source: .
+        target: /app/pycpu
+      - type: bind
+        source: /tmp
+        target: /app/tmp
+    env_file:
+        - .env
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  spectrum:

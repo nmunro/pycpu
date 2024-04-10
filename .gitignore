@@ -61,3 +61,5 @@ templates/views/info/third-party-software.html
 zap/testreport.html
 zap/gen.conf
 .dccache
+
+.env
