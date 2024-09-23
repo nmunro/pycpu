@@ -2,6 +2,7 @@ section .prog
     org 0x1000
     move.l #0x00000000, r1
     move.l #hello, r2
+end
 
 print_loop:
     move.b (r2)+, r3       ; Load next character from string
@@ -16,3 +17,4 @@ print_done:
 section .data
 hello:
     dc.b "Hello World!", 0
+end

@@ -1,16 +1,16 @@
 from pathlib import Path
+import curses
 import tomllib
 
 from cpu import CPU, Register
 from display import Display
 from machine import Machine
 from vm import VM
-from instruction_set import instruction_set
-import compiler
 
 
-def main():
-    data = tomllib.load(Path("cpu_conf.toml").open("rb"))
+def main(screen):
+    with Path("cpu_conf.toml").open("rb") as conf:
+        data = tomllib.load(conf)
 
     registers = []
 
@@ -34,11 +34,14 @@ def main():
         total_size=data["vm"]["total_size"],
     )
 
-    display = Display(width=80, address="0x00000000")
+    display = Display(screen, width=80, address="0x00000000")
 
     machine = Machine(cpu=cpu, memory=memory, display=display)
 
-    print(machine)
+    machine.display.write_byte("H")
+    machine.display.write_byte("e")
+    machine.display.close()
+
     print(machine.cpu)
     print(machine.cpu.registers)
     print(machine.memory)
@@ -51,11 +54,10 @@ def main():
     print(machine.memory.read_memory_location("1x07"))
     machine.memory.write_memory_location("1x07", "0c")
     print(machine.memory.read_memory_location("1x07"))
-
     print(machine.memory.read_memory_location("7x00"))
 
     machine.load("programs/1.asm")
 
 
 if __name__ == "__main__":
-    main()
+    curses.wrapper(main)

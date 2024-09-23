@@ -33,7 +33,7 @@ endif
 	@docker compose -f $(COMPOSE_FILE) build $(SERVICE)
 
 run: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) up $(SERVICE) --remove-orphans
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE)
 
 lint:
 ifeq ($(SERVICE),pycpu)
@@ -43,7 +43,7 @@ else
 endif
 
 repl: dev-tools-check
-	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python manage.py shell --settings=spectrum.settings.dev
+	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) poetry run python
 
 shell:
 	@docker compose -f $(COMPOSE_FILE) run --rm $(SERVICE) /bin/bash

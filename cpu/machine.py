@@ -14,7 +14,9 @@ class Machine:
 
     @load.register
     def _(self, program: str) -> None:
-        self.load(Path(program))
+        print(f"Loading: {program}")
+        with Path(program).open("r") as p:
+            print(p.read())
 
     @load.register
     def _(self, program: Path) -> None:
