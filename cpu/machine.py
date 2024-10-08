@@ -14,13 +14,14 @@ class Machine:
 
     @load.register
     def _(self, program: str) -> None:
-        print(f"Loading: {program}")
-        with Path(program).open("r") as p:
-            print(p.read())
+        self.load(Path(program))
 
     @load.register
     def _(self, program: Path) -> None:
         print(f"Loading: {program}")
+        with program.open("rb") as p:
+            print(p.read())
 
-    def boot(self, program: str) -> None:
-        pass
+    def boot(self) -> None:
+        print("Attempting to boot cpu")
+        self.cpu.run()

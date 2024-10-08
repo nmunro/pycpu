@@ -20,7 +20,7 @@ class Operator:
             self.instruction = instruction_set[operator]
 
     def __str__(self) -> str:
-        return f"{self.instruction}"
+        return self.instruction
 
     def __repr__(self) -> str:
         return f"<Operator: {str(self)}>"

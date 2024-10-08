@@ -56,7 +56,8 @@ def main(screen):
     print(machine.memory.read_memory_location("1x07"))
     print(machine.memory.read_memory_location("7x00"))
 
-    machine.load("programs/1.asm")
+    machine.load("programs/1.bin")
+    machine.boot()
 
 
 if __name__ == "__main__":

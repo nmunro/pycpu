@@ -1,3 +1,18 @@
+import sys
+
+
+class CPUHalt(Exception):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.message = "CPU Halted"
+
+    def __str__(self) -> str:
+        return self.message
+
+    def __repr__(self) -> str:
+        return f"<CPUHalt: {str(self)}>"
+
+
 class Register:
     def __init__(self, name: str, protected: bool = False) -> None:
         self.name = name
@@ -9,6 +24,7 @@ class Register:
 
     def __repr__(self) -> str:
         return f"<Register: {str(self)}>"
+
 
 class CPU:
     CLOCK_FREQUENCY_OPTIONS = [
@@ -33,6 +49,7 @@ class CPU:
 
         self.speed = clock_speed
         self.freq = clock_freq
+        self.program_counter = 0
 
     @property
     def registers(self) -> str:
@@ -46,12 +63,18 @@ class CPU:
     def memory(self, memory):
         self._memory = memory
 
-
     def fetch(self):
         pass
 
     def execute(self):
         pass
+
+    def run(self):
+        print("CPU starting")
+        self.halt()
+
+    def halt(self):
+        sys.exit("CPU stopping")
 
     def __str__(self) -> str:
         return f"{self.speed}{self.freq}, {self.registers_count} registers"
