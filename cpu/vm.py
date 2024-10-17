@@ -10,13 +10,16 @@ class InvalidMemoryLocation(Exception):
 
 
 class VM:
-    def __init__(self, word_length: int = 8, total_size: int = 8) -> None:
+    def __init__(self, word_length: int = 8, size: int = 8) -> None:
+        if size % word_length != 0:
+            raise ValueError(f"Size ({size}) must be divisible by word_length {word_length}")
+
         self.word_length = 8
-        self.size = total_size
-        self.memory = [
-            ["00" for _ in range(int(self.size / self.word_length))]
-            for _ in range(self.word_length)
-        ]
+        self.size = size
+
+        for row in range(int(self.size / self.word_length)):
+            for col in range(self.word_length):
+                setattr(self, f"{row}x{str(col).zfill(2)}", "00")
 
     def _convert_memory_location(self, location: str) -> int:
         offset, value = location.split("x")
@@ -40,10 +43,10 @@ class VM:
         self.memory[x][y] = value
 
     def __str__(self) -> str:
-        return "\n".join([
-            f"{num}x{str(b).zfill(2)}: {self.memory[b]}"
-            for num, b in enumerate(range(int(self.size / self.word_length)))
-        ])
+        return f"Size: {self.size}, Word Length: {self.word_length}"
 
     def __repr__(self) -> str:
         return f"<VM: {str(self)}>"
+
+    def __getitem__(self, item):
+        return getattr(self, item)

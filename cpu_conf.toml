@@ -31,5 +31,5 @@ prefix = "mar"
 protected = true
 
 [vm]
-total_size = 64
+size = 4096
 word_length = 8

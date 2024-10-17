@@ -2,9 +2,9 @@ import curses
 
 
 class Display:
-    def __init__(self, screen, width: int = 80, address: str = "0x00000000"):
+    def __init__(self, width: int = 80, height: int = 24) -> None:
         self.width = width
-        self.address = address
+        self.height = height
         self.screen = screen
         curses.noecho()
         curses.cbreak()
@@ -23,7 +23,10 @@ class Display:
         curses.endwin()
 
     def __str__(self) -> str:
-        return f"Basic Terminal (Width: {self.width})"
+        return f"Basic Terminal (Width: {self.width}, Height {self.height})"
 
     def __repr__(self) -> str:
         return f"<Display: {str(self)}>"
+
+    def refresh(self) -> None:
+        pass

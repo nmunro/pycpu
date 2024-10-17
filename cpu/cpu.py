@@ -55,14 +55,6 @@ class CPU:
     def registers(self) -> str:
         return "\n".join([f"{getattr(self, reg.name)}" for reg in self._registers])
 
-    @property
-    def memory(self):
-        return self._memory
-
-    @memory.setter
-    def memory(self, memory):
-        self._memory = memory
-
     def fetch(self):
         pass
 

@@ -31,7 +31,7 @@ def main(screen):
 
     memory = VM(
         word_length=data["vm"]["word_length"],
-        total_size=data["vm"]["total_size"],
+        size=data["vm"]["size"],
     )
 
     display = Display(screen, width=80, address="0x00000000")
@@ -45,11 +45,11 @@ def main(screen):
     print(machine.cpu)
     print(machine.cpu.registers)
     print(machine.memory)
-    print(machine.display)
+    # print(machine.display)
 
-    print(machine.memory.read_memory_location("0x07"))
-    machine.memory.write_memory_location("0x07", "ff")
-    print(machine.memory.read_memory_location("0x07"))
+    # print(machine.memory.read_memory_location("0x07"))
+    # machine.memory.write_memory_location("0x07", "ff")
+    # print(machine.memory.read_memory_location("0x07"))
 
     print(machine.memory.read_memory_location("1x07"))
     machine.memory.write_memory_location("1x07", "0c")
