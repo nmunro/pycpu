@@ -34,13 +34,23 @@ def main(screen):
         size=data["vm"]["size"],
     )
 
-    display = Display(screen, width=80, address="0x00000000")
-
+    display = Display(screen, width=80, height=24)
     machine = Machine(cpu=cpu, memory=memory, display=display)
 
-    machine.display.write_byte("H")
-    machine.display.write_byte("e")
+    # Test display memory
+    for y in range(24):
+        for x in range(80):
+            machine.display.write_byte(y, x, str(0))
+
+    machine.display.write_byte(10, 10, "H")
+    machine.display.write_byte(10, 11, "e")
+    machine.display.write_byte(10, 12, "l")
+    machine.display.write_byte(10, 13, "l")
+    machine.display.write_byte(10, 14, "o")
+
     machine.display.close()
+
+    print(f"Window dimensions: {screen.getmaxyx()}")
 
     print(machine.cpu)
     print(machine.cpu.registers)

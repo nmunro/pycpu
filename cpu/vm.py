@@ -21,26 +21,11 @@ class VM:
             for col in range(self.word_length):
                 setattr(self, f"{row}x{str(col).zfill(2)}", "00")
 
-    def _convert_memory_location(self, location: str) -> int:
-        offset, value = location.split("x")
-        offset = int(offset)
-        value = int(value)
-
-        if offset >= len(self.memory):
-            raise InvalidMemoryLocation(f"Offset {offset} does not exist")
-
-        if value >= self.word_length:
-            raise InvalidMemoryLocation(f"Location {location} does not exist")
-
-        return offset, value
-
     def read_memory_location(self, location: str) -> str:
-        x, y = self._convert_memory_location(location)
-        return self.memory[x][y]
+        return self[location]
 
     def write_memory_location(self, location: str, value: str) -> None:
-        x, y = self._convert_memory_location(location)
-        self.memory[x][y] = value
+        self[location] = value
 
     def __str__(self) -> str:
         return f"Size: {self.size}, Word Length: {self.word_length}"
@@ -50,3 +35,7 @@ class VM:
 
     def __getitem__(self, item):
         return getattr(self, item)
+
+    def __setitem__(self, item, value):
+        if getattr(self, item):
+            setattr(self, item, value)
